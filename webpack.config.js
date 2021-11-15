@@ -72,21 +72,26 @@ module.exports = {
      * 如果我们要在一个 HTML 页面上使用多个入口时，
      * 还需设置 optimization.runtimeChunk: 'single'
      */
-    // optimization: {
-    //     runtimeChunk: 'single',
-    //     moduleIds: 'deterministic',
+    optimization: {
+        runtimeChunk: 'single',
+        /**
+         * main bundle 会随着自身的新增内容的修改，而发生变化
+         * vendor bundle 会随着自身的 module.id 的变化，而发生变化
+         * manifest runtime 会因为现在包含一个新模块的引用，而发生变化
+         */
+        moduleIds: 'deterministic',
     //     /**
     //      * 将公共的依赖模块提取到已有的入口 chunk 中，或者提取到一个新生成的 chunk。
     //      */
-    //     splitChunks: {
-    //         // chunks: 'all',
-    //         cacheGroups: {
-    //             vendor: {
-    //                 test: /[\\/]node_modules[\\/]/,
-    //                 name: 'vendors',
-    //                 chunks: 'all',
-    //             }
-    //         }
-    //     }
-    // },
+        splitChunks: {
+            // chunks: 'all',
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                }
+            }
+        }
+    },
 }
